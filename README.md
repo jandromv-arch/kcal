@@ -1,6 +1,6 @@
 # Kcal
 
-App web (PWA) para iPhone: calorías consumidas vs objetivo diario, por comida (desayuno, comida, cena, snacks), con vistas Hoy / Semana / Mes.
+App web (PWA) para iPhone: calorías consumidas vs objetivo diario, por comida (desayuno, comida, cena, snacks), con vistas Hoy / Semana / Mes. Kcal gastadas (ejercicio) a mano, opcionalmente sumadas al objetivo.
 
 Diseño inspirado en [OpenNutriTracker](https://github.com/simonoppowa/OpenNutriTracker): anillo de kcal restantes, comidas por momento del día y botón + central con lo reciente a un toque.
 

@@ -21,7 +21,7 @@
 :root{
   --bg:#F3F2F7; --card:#FFFFFF; --ink:#17142A; --muted:#6E6A80; --line:#E7E5EF; --chip:#EEEDF4;
   --band:#17142A; --band2:#231E3D; --band-fg:#FFFFFF; --band-muted:rgba(255,255,255,.62); --band-track:rgba(255,255,255,.10); --band-chip:rgba(255,255,255,.10);
-  --m1:#FFB224; --m2:#FF6B3D; --m3:#8B7CFF; --m4:#2CC5DB; --on-meal:#17142A;
+  --m1:#FFB224; --m2:#FF6B3D; --m3:#8B7CFF; --m4:#2CC5DB; --m5:#B8F03C; --on-meal:#17142A;
   --ok:#12A150; --ok-soft:#DFF5E8; --bad:#E5383B; --bad-soft:#FDE4E4; --empty:#ECEBF2;
   --scrim:rgba(12,10,21,.5);
   --f-display:"Unbounded", ui-rounded, -apple-system, system-ui, sans-serif;
@@ -72,7 +72,7 @@ button:focus-visible,input:focus-visible{outline:2px solid var(--m3);outline-off
 .status{display:inline-flex;align-items:center;gap:7px;border-radius:999px;padding:7px 13px;font-weight:700;font-size:.85rem;background:var(--band-chip)}
 .status i{width:8px;height:8px;border-radius:50%;background:currentColor}
 .status.ok{color:#5BE39F} .status.bad{color:#FF8A8D} .status.idle{color:var(--band-muted)}
-.mealsum{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;width:100%}
+.mealsum{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;width:100%}
 .mealsum div{display:flex;flex-direction:column;align-items:center;gap:3px;min-width:0}
 .mealsum .dot{width:8px;height:8px;border-radius:50%}
 .mealsum small{font-size:.7rem;color:var(--band-muted);white-space:nowrap}
@@ -84,6 +84,8 @@ button:focus-visible,input:focus-visible{outline:2px solid var(--m3);outline-off
 .hero-stat .big small{font-size:.9rem;font-weight:600;color:var(--band-muted);letter-spacing:0;margin-left:6px;font-family:var(--f-body)}
 .tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
 .tiles.four{grid-template-columns:repeat(2,1fr)}
+.tiles.six{grid-template-columns:repeat(3,1fr)}
+.tile b.burn{color:var(--m5)}
 .tile{background:var(--band-chip);border-radius:16px;padding:12px;display:flex;flex-direction:column;gap:4px;min-width:0}
 .tile span{font-size:.7rem;color:var(--band-muted);font-weight:600}
 .tile b{font-family:var(--f-display);font-size:1.15rem;font-weight:700;font-variant-numeric:tabular-nums;white-space:nowrap}
@@ -193,6 +195,15 @@ nav.tabs .tab[aria-selected="true"]{color:var(--ink)}
 .pad button svg{width:24px;height:24px}
 .cta{border:0;border-radius:18px;padding:16px;font-weight:800;font-size:1.02rem;color:var(--on-meal);display:flex;justify-content:center;gap:8px}
 .cta:disabled{opacity:.4}
+.burnhead{display:flex;align-items:center;gap:12px}
+.burnhead h3{flex:1}
+.toggle{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:12px 14px;border:1px solid var(--line);border-radius:16px;cursor:pointer}
+.toggle span{font-size:.92rem;font-weight:600}
+.toggle small{display:block;color:var(--muted);font-weight:500;font-size:.78rem;margin-top:2px}
+.toggle input{appearance:none;-webkit-appearance:none;width:50px;height:30px;border-radius:99px;background:var(--line);position:relative;flex:none;transition:background .2s;margin:0}
+.toggle input::after{content:"";position:absolute;top:3px;left:3px;width:24px;height:24px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.25);transition:transform .2s}
+.toggle input:checked{background:var(--ok)}
+.toggle input:checked::after{transform:translateX(20px)}
 .cta:not(:disabled):active{transform:scale(.98)}
 .goalrow{display:flex;align-items:center;justify-content:space-between;gap:12px}
 .step{width:52px;height:52px;border-radius:50%;border:0;background:var(--chip);font-size:1.5rem;font-weight:600;display:grid;place-items:center}
@@ -226,6 +237,7 @@ nav.tabs .tab[aria-selected="true"]{color:var(--ink)}
     <symbol id="i-m2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3v6a2 2 0 0 0 2 2v10M9 3v6a2 2 0 0 1-2 2M7 3v5"/><path d="M18 21V3c-2.5 1.2-4 4-4 8.5h4"/></symbol>
     <symbol id="i-m3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></symbol>
     <symbol id="i-m4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8c-1.6-1.4-4.8-1.3-6.2.9-1.5 2.4-.9 6.5 1.1 9.3 1.5 2 3.3 2.6 5.1 1.6 1.8 1 3.6.4 5.1-1.6 2-2.8 2.6-6.9 1.1-9.3C16.8 6.7 13.6 6.6 12 8z"/><path d="M12 8c0-2.3 1.1-3.8 3-4.5"/></symbol>
+    <symbol id="i-fire" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21c-3.9 0-7-2.8-7-6.6 0-3.1 2.1-5.3 3.9-7.2.4 1.9 1.3 3 2.6 3.6C11.4 7.3 12.9 4.6 15.4 3c-.3 2.6.9 4.4 2.2 6 1 1.3 1.4 2.6 1.4 4.4C19 18.2 15.9 21 12 21z"/><path d="M12 21c-1.7 0-3-1.2-3-2.9 0-1.6 1.1-2.6 2.2-3.6.2 1 .8 1.6 1.6 1.8.2-1 .7-1.7 1.5-2.2.4 1.1 1.2 1.9 1.2 3.4 0 2-1.4 3.5-3.5 3.5z"/></symbol>
     <symbol id="i-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></symbol>
     <symbol id="i-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></symbol>
     <symbol id="i-l" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></symbol>
@@ -272,10 +284,11 @@ nav.tabs .tab[aria-selected="true"]{color:var(--ink)}
       <div class="navpill"><button id="wPrev" aria-label="Semana anterior"><svg width="18" height="18"><use href="#i-l"/></svg></button><button id="wNext" aria-label="Semana siguiente"><svg width="18" height="18"><use href="#i-r"/></svg></button></div>
     </div>
     <div class="hero-stat"><span class="label" style="color:var(--band-muted)">Media diaria</span><div class="big" id="wAvg">–<small>kcal</small></div></div>
-    <div class="tiles">
+    <div class="tiles four">
       <div class="tile"><span>Días dentro</span><b id="wOk">0/0</b></div>
       <div class="tile"><span>Balance</span><b id="wBal">0</b></div>
       <div class="tile"><span>Racha</span><b id="wStreak">0</b></div>
+      <div class="tile"><span>Ejercicio</span><b class="burn" id="wBurn">0</b></div>
     </div>
   </div></header>
   <main><div class="wrap">
@@ -293,11 +306,13 @@ nav.tabs .tab[aria-selected="true"]{color:var(--ink)}
       <div class="brand"><svg aria-hidden="true"><use href="#logo"/></svg><div><h1 id="mTitle">Mes</h1><div class="date" id="mYear"></div></div></div>
       <div class="navpill"><button id="mPrev" aria-label="Mes anterior"><svg width="18" height="18"><use href="#i-l"/></svg></button><button id="mNext" aria-label="Mes siguiente"><svg width="18" height="18"><use href="#i-r"/></svg></button></div>
     </div>
-    <div class="tiles four">
+    <div class="tiles six">
       <div class="tile"><span>Media diaria</span><b id="mAvg">–</b></div>
       <div class="tile"><span>Días dentro</span><b id="mOk">0/0</b></div>
       <div class="tile"><span>Mejor racha</span><b id="mStreak">0</b></div>
-      <div class="tile"><span>Balance del mes</span><b id="mBal">0</b></div>
+      <div class="tile"><span>Balance</span><b id="mBal">0</b></div>
+      <div class="tile"><span>Ejercicio</span><b class="burn" id="mBurn">0</b></div>
+      <div class="tile"><span>Días activos</span><b id="mActive">0</b></div>
     </div>
   </div></header>
   <main><div class="wrap">
@@ -340,6 +355,26 @@ nav.tabs .tab[aria-selected="true"]{color:var(--ink)}
   </div>
 </div>
 
+<!-- ================= SHEET EJERCICIO ================= -->
+<div class="sheet" id="burnSheet" role="dialog" aria-modal="true" aria-label="Calorías gastadas">
+  <div class="panel">
+    <div class="grab"></div>
+    <div class="burnhead"><div class="micon" style="background:var(--m5)"><svg><use href="#i-fire"/></svg></div><h3 id="burnTitle">Ejercicio de hoy</h3></div>
+    <p class="hint">Mira en tu reloj las <b>kcal activas</b> (Actividad / Movimiento) y escríbelas. Puedes actualizarlas varias veces al día.</p>
+    <div>
+      <div class="display"><span class="v ph num" id="burnV">0</span><small>kcal</small></div>
+      <div class="after" id="burnAfter"></div>
+    </div>
+    <div class="pad" id="burnPad">
+      <button data-k="1">1</button><button data-k="2">2</button><button data-k="3">3</button>
+      <button data-k="4">4</button><button data-k="5">5</button><button data-k="6">6</button>
+      <button data-k="7">7</button><button data-k="8">8</button><button data-k="9">9</button>
+      <button data-k="00">00</button><button data-k="0">0</button><button data-k="bk" aria-label="Borrar"><svg><use href="#i-back"/></svg></button>
+    </div>
+    <button class="cta" id="burnSave" style="background:var(--m5)">Guardar</button>
+  </div>
+</div>
+
 <!-- ================= SHEET AJUSTES ================= -->
 <div class="sheet" id="setSheet" role="dialog" aria-modal="true" aria-label="Ajustes">
   <div class="panel">
@@ -351,6 +386,7 @@ nav.tabs .tab[aria-selected="true"]{color:var(--ink)}
       <button class="step" id="gPlus" aria-label="Subir 50">+</button>
     </div>
     <div class="presets" id="presets"></div>
+    <label class="toggle" for="burnCount"><span>Sumar ejercicio al objetivo<small>Si gastas 400 kcal, ese día puedes comer 400 más.</small></span><input type="checkbox" id="burnCount"></label>
     <button class="primary" id="gSave">Guardar objetivo</button>
     <h3 style="margin-top:8px">Copia de seguridad</h3>
     <p class="hint">Tus datos viven solo en este iPhone. Exporta de vez en cuando y guarda el archivo en Archivos o iCloud.</p>
@@ -388,14 +424,18 @@ nav.tabs .tab[aria-selected="true"]{color:var(--ink)}
   const mealByTime = t => { const [h,m]=(t||'12:00').split(':').map(Number), x=h*60+m; return x<690?'desayuno':x<990?'comida':x<1170?'snack':'cena'; };
 
   // days = {'YYYY-MM-DD': {entries:[{id,t,kcal,label,meal}], goal}}
-  const S = { goal:2000, days:{}, view:'hoy', dayKey:todayKey(), weekOff:0, monthOff:0 };
+  const S = { goal:2000, countBurn:true, days:{}, view:'hoy', dayKey:todayKey(), weekOff:0, monthOff:0 };
   const migrate = () => Object.values(S.days).forEach(d=>(d.entries||[]).forEach(e=>{ e.kcal=+e.kcal||0; if(!e.meal) e.meal=mealByTime(e.t); }));
-  function load(){ try{ const s=JSON.parse(localStorage.getItem(LS)||'null'); if(s){ S.goal=s.goal||2000; S.days=s.days||{}; } }catch(e){} migrate(); }
-  function save(){ try{ localStorage.setItem(LS, JSON.stringify({goal:S.goal,days:S.days})); }catch(e){ toast('No se pudo guardar'); } }
+  function load(){ try{ const s=JSON.parse(localStorage.getItem(LS)||'null'); if(s){ S.goal=s.goal||2000; S.days=s.days||{}; if(typeof s.countBurn==='boolean') S.countBurn=s.countBurn; } }catch(e){} migrate(); }
+  function save(){ try{ localStorage.setItem(LS, JSON.stringify({goal:S.goal,countBurn:S.countBurn,days:S.days})); }catch(e){ toast('No se pudo guardar'); } }
 
   const entries = k => S.days[k]?.entries || [];
   const dayTotal = k => entries(k).reduce((a,e)=>a+(+e.kcal||0),0);
-  const dayGoal = k => S.days[k]?.goal || S.goal;
+  const baseGoal = k => S.days[k]?.goal || S.goal;
+  const burned = k => +S.days[k]?.burned || 0;
+  const dayGoal = k => baseGoal(k) + (S.countBurn ? burned(k) : 0);   // objetivo efectivo del día
+  const ensureDay = k => S.days[k] || (S.days[k]={entries:[], goal:S.goal});
+  const pruneDay = k => { const d=S.days[k]; if(d && !d.entries.length && !d.burned) delete S.days[k]; };
   const hasData = k => entries(k).length>0;
   const mealTotal = (k,m) => entries(k).filter(e=>e.meal===m).reduce((a,e)=>a+e.kcal,0);
   const isOk = k => dayTotal(k)<=dayGoal(k);
@@ -430,11 +470,12 @@ nav.tabs .tab[aria-selected="true"]{color:var(--ink)}
     $('ring').classList.toggle('is-over',over);
     $('ringNum').textContent = over ? '+'+nf(total-goal) : nf(goal-total);
     $('ringUnit').textContent = over ? 'kcal de más' : total===0 ? 'kcal disponibles' : 'kcal restantes';
-    $('ringOf').textContent = nf(total)+' de '+nf(goal)+' kcal';
+    $('ringOf').textContent = nf(total)+' de '+nf(goal)+' kcal'+(S.countBurn&&burned(k)?' (con ejercicio)':'');
     const st=$('status'), pct=total/goal;
     st.className='status '+(over?'bad':total===0?'idle':'ok');
     st.lastElementChild.textContent = over ? 'Te has pasado' : total===0 ? 'Empieza tu día' : pct>=.9 ? 'Justo en el objetivo' : 'Vas bien';
-    $('mealsum').innerHTML = MEALS.map(m=>`<div><span class="dot" style="background:${m.c}"></span><small>${m.name}</small><b>${nf(mealTotal(k,m.id))}</b></div>`).join('');
+    $('mealsum').innerHTML = MEALS.map(m=>`<div><span class="dot" style="background:${m.c}"></span><small>${m.name}</small><b>${nf(mealTotal(k,m.id))}</b></div>`).join('')
+      + `<div><span class="dot" style="background:var(--m5)"></span><small>Ejercicio</small><b style="color:var(--m5)">${burned(k)?'−'+nf(burned(k)):'0'}</b></div>`;
   }
   function renderDay(){
     const k=S.dayKey, isToday=k===todayKey(), d=fromKey(k);
@@ -468,11 +509,19 @@ nav.tabs .tab[aria-selected="true"]{color:var(--ink)}
       }
       box.append(card);
     });
+    const b=burned(k), bc=document.createElement('div'); bc.className='card meal';
+    bc.innerHTML=`<div class="meal-head"><div class="micon" style="background:var(--m5)"><svg><use href="#i-fire"/></svg></div>
+      <div class="info"><div class="name">Ejercicio</div><div class="meta">${b ? (S.countBurn?'Suma '+nf(b)+' a tu objetivo':'No suma al objetivo') : 'kcal gastadas del reloj'}</div></div>
+      <div class="kc">${b?nf(b):''}</div>
+      <button class="addbtn" style="background:var(--m5)" aria-label="${b?'Editar':'Añadir'} kcal gastadas"><svg><use href="${b?'#i-fire':'#i-plus'}"/></svg></button></div>`;
+    bc.querySelector('.addbtn').onclick=openBurn;
+    const h=document.createElement('div'); h.className='sec-h'; h.style.marginTop='12px'; h.innerHTML='<h2>Actividad</h2><small>del reloj, a mano</small>';
+    box.append(h, bc);
   }
   function addEntry(kcal,label,meal){
     kcal=Math.round(+kcal); if(!(kcal>0&&kcal<10000)) return;
     const k=S.dayKey;
-    if(!S.days[k]) S.days[k]={entries:[], goal:S.goal};
+    ensureDay(k);
     const now=new Date();
     const e={id:Math.random().toString(36).slice(2,10), t:pad2(now.getHours())+':'+pad2(now.getMinutes()), kcal, label:(label||'').trim(), meal};
     S.days[k].entries.push(e);
@@ -482,9 +531,9 @@ nav.tabs .tab[aria-selected="true"]{color:var(--ink)}
   function removeEntry(k,e,silent){
     if(!S.days[k]) return;
     S.days[k].entries=S.days[k].entries.filter(x=>x.id!==e.id);
-    if(!S.days[k].entries.length) delete S.days[k];
+    pruneDay(k);
     save(); render();
-    if(!silent) toast('Borrado '+(e.label||nf(e.kcal)+' kcal'), ()=>{ if(!S.days[k]) S.days[k]={entries:[],goal:S.goal}; S.days[k].entries.push(e); save(); render(); });
+    if(!silent) toast('Borrado '+(e.label||nf(e.kcal)+' kcal'), ()=>{ ensureDay(k).entries.push(e); save(); render(); });
   }
 
   // ---------- SEMANA ----------
@@ -503,6 +552,7 @@ nav.tabs .tab[aria-selected="true"]{color:var(--ink)}
     $('wOk').textContent = wd.filter(x=>x.total<=x.goal).length+'/'+wd.length;
     $('wBal').textContent = wd.length ? (bal>0?'+':'')+nf(bal) : '–';
     $('wBal').className = wd.length ? (bal>0?'badc':'okc') : '';
+    const wb=days.reduce((a,x)=>a+burned(x.k),0); $('wBurn').textContent = wb?nf(wb):'–';
     const st=currentStreak(); $('wStreak').textContent = st+(st===1?' día':' días');
     // gráfico apilado por comida
     const W=340,H=220,pl=30,pr=4,pt=20,pb=26, cw=W-pl-pr, ch=H-pt-pb;
@@ -566,6 +616,8 @@ nav.tabs .tab[aria-selected="true"]{color:var(--ink)}
       b.onclick=()=>{ S.dayKey=k; setView('hoy'); };
       cal.append(b);
     }
+    let mb=0, act=0; for(let d=1; d<=n; d++){ const b=burned(keyOf(new Date(first.getFullYear(), first.getMonth(), d))); mb+=b; if(b) act++; }
+    $('mBurn').textContent = mb?nf(mb):'–'; $('mActive').textContent = act+(act===1?' día':' días');
     $('mAvg').textContent=cnt?nf(tot/cnt):'–';
     $('mOk').textContent=ok+'/'+cnt;
     $('mStreak').textContent=best+(best===1?' día':' días');
@@ -634,23 +686,43 @@ nav.tabs .tab[aria-selected="true"]{color:var(--ink)}
   $('padLbl').addEventListener('keydown',e=>{ if(e.key==='Enter'){ e.preventDefault(); e.target.blur(); } });
   $('fab').onclick=()=>{ if(S.view!=='hoy'){ S.dayKey=todayKey(); setView('hoy'); } openAdd(); };
 
+  // Ejercicio (kcal gastadas, se fija el valor del día, no se acumula)
+  let burnVal='';
+  function renderBurn(){
+    const k=S.dayKey, v=+burnVal||0, prev=burned(k);
+    $('burnTitle').textContent = k===todayKey() ? 'Ejercicio de hoy' : 'Ejercicio · '+fromKey(k).toLocaleDateString('es-ES',{weekday:'short',day:'numeric',month:'short'});
+    $('burnV').textContent = v?nf(v):'0'; $('burnV').classList.toggle('ph',!v);
+    const g=baseGoal(k)+(S.countBurn?v:0), rest=g-dayTotal(k);
+    $('burnAfter').innerHTML = S.countBurn ? `Objetivo del día: <b class="ok">${nf(g)} kcal</b> · ${rest>=0?'te quedan '+nf(rest):'te pasas '+nf(-rest)}` : 'No se suma al objetivo (puedes cambiarlo en Ajustes)';
+    const btn=$('burnSave'); btn.disabled = v===prev;
+    btn.textContent = !v && prev ? 'Quitar ejercicio' : v===prev ? 'Sin cambios' : 'Guardar '+nf(v)+' kcal gastadas';
+  }
+  function openBurn(){ burnVal=String(burned(S.dayKey)||''); renderBurn(); openSheet('burnSheet'); }
+  $('burnPad').addEventListener('click',e=>{ const b=e.target.closest('button'); if(!b) return; const k=b.dataset.k;
+    if(k==='bk') burnVal=burnVal.slice(0,-1); else if((burnVal+k).replace(/^0+/,'').length<=4) burnVal=(burnVal+k).replace(/^0+/,'');
+    renderBurn(); });
+  $('burnSave').onclick=()=>{ const k=S.dayKey, v=+burnVal||0, prev=burned(k);
+    ensureDay(k).burned=v; pruneDay(k); save(); closeSheet('burnSheet'); render();
+    toast(v?'Ejercicio: '+nf(v)+' kcal':'Ejercicio quitado', ()=>{ ensureDay(k).burned=prev; pruneDay(k); save(); render(); }); };
+
   // Ajustes
   let gTmp=2000; const PRESETS=[1500,1800,2000,2200,2500];
   function renderGoal(){ $('gVal').textContent=nf(gTmp); $('presets').innerHTML=PRESETS.map(p=>`<button data-p="${p}" aria-pressed="${p===gTmp}">${nf(p)}</button>`).join(''); }
-  $('setBtn').onclick=()=>{ gTmp=S.goal; renderGoal(); openSheet('setSheet'); };
+  $('setBtn').onclick=()=>{ gTmp=S.goal; $('burnCount').checked=S.countBurn; renderGoal(); openSheet('setSheet'); };
+  $('burnCount').onchange=e=>{ S.countBurn=e.target.checked; save(); render(); };
   $('gMinus').onclick=()=>{ gTmp=Math.max(1000,gTmp-50); renderGoal(); };
   $('gPlus').onclick=()=>{ gTmp=Math.min(6000,gTmp+50); renderGoal(); };
   $('presets').addEventListener('click',e=>{ const b=e.target.closest('button'); if(b){ gTmp=+b.dataset.p; renderGoal(); } });
   $('gSave').onclick=()=>{ S.goal=gTmp; const k=todayKey(); if(S.days[k]) S.days[k].goal=gTmp; save(); closeSheet('setSheet'); render(); toast('Objetivo: '+nf(gTmp)+' kcal'); };
   $('expBtn').onclick=async()=>{
-    const json=JSON.stringify({app:'kcal',v:2,exported:new Date().toISOString(),goal:S.goal,days:S.days});
+    const json=JSON.stringify({app:'kcal',v:3,exported:new Date().toISOString(),goal:S.goal,countBurn:S.countBurn,days:S.days});
     const name='kcal-backup-'+todayKey()+'.json', file=new File([json],name,{type:'application/json'});
     try{ if(navigator.canShare&&navigator.canShare({files:[file]})){ await navigator.share({files:[file],title:name}); return; } }catch(e){ if(e.name==='AbortError') return; }
     const a=document.createElement('a'); a.href=URL.createObjectURL(file); a.download=name; document.body.append(a); a.click(); a.remove();
   };
   $('impFile').onchange=e=>{ const f=e.target.files[0]; if(!f) return; const r=new FileReader();
     r.onload=()=>{ try{ const s=JSON.parse(r.result); if(!s.days||typeof s.days!=='object') throw 0;
-      Object.assign(S.days,s.days); if(s.goal) S.goal=s.goal; migrate(); save(); closeSheet('setSheet'); render(); toast('Datos importados');
+      Object.assign(S.days,s.days); if(s.goal) S.goal=s.goal; if(typeof s.countBurn==='boolean') S.countBurn=s.countBurn; migrate(); save(); closeSheet('setSheet'); render(); toast('Datos importados');
     }catch(err){ toast('Ese archivo no es una copia de Kcal'); } };
     r.readAsText(f); e.target.value=''; };
 
