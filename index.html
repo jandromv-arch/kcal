@@ -697,7 +697,7 @@ nav.tabs .tab[aria-selected="true"]{color:var(--ink)}
     const g=baseGoal(k)+(S.countBurn?v:0), rest=g-dayTotal(k);
     $('burnAfter').innerHTML = S.countBurn ? `Objetivo del día: <b class="ok">${nf(g)} kcal</b> · ${rest>=0?'te quedan '+nf(rest):'te pasas '+nf(-rest)}` : 'No se suma al objetivo (puedes cambiarlo en Ajustes)';
     const btn=$('burnSave'); btn.disabled = v===prev;
-    btn.textContent = !v && prev ? 'Quitar gasto activo' : v===prev ? 'Sin cambios' : 'Guardar '+nf(v)+' kcal';
+    btn.textContent = !v && prev ? 'Quitar gasto activo' : !v ? 'Escribe las kcal' : v===prev ? 'Sin cambios' : 'Guardar '+nf(v)+' kcal';
   }
   function openBurn(){ burnVal=String(burned(S.dayKey)||''); renderBurn(); openSheet('burnSheet'); }
   bindPad($('burnPad'), ()=>burnVal, v=>burnVal=v, renderBurn);
