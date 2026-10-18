@@ -288,7 +288,7 @@ nav.tabs .tab[aria-selected="true"]{color:var(--ink)}
       <div class="tile"><span>Días dentro</span><b id="wOk">0/0</b></div>
       <div class="tile"><span>Balance</span><b id="wBal">0</b></div>
       <div class="tile"><span>Racha</span><b id="wStreak">0</b></div>
-      <div class="tile"><span>Ejercicio</span><b class="burn" id="wBurn">0</b></div>
+      <div class="tile"><span>Gasto activo</span><b class="burn" id="wBurn">0</b></div>
     </div>
   </div></header>
   <main><div class="wrap">
@@ -311,7 +311,7 @@ nav.tabs .tab[aria-selected="true"]{color:var(--ink)}
       <div class="tile"><span>Días dentro</span><b id="mOk">0/0</b></div>
       <div class="tile"><span>Mejor racha</span><b id="mStreak">0</b></div>
       <div class="tile"><span>Balance</span><b id="mBal">0</b></div>
-      <div class="tile"><span>Ejercicio</span><b class="burn" id="mBurn">0</b></div>
+      <div class="tile"><span>Gasto activo</span><b class="burn" id="mBurn">0</b></div>
       <div class="tile"><span>Días activos</span><b id="mActive">0</b></div>
     </div>
   </div></header>
@@ -355,12 +355,11 @@ nav.tabs .tab[aria-selected="true"]{color:var(--ink)}
   </div>
 </div>
 
-<!-- ================= SHEET EJERCICIO ================= -->
-<div class="sheet" id="burnSheet" role="dialog" aria-modal="true" aria-label="Calorías gastadas">
+<!-- ================= SHEET GASTO ACTIVO ================= -->
+<div class="sheet" id="burnSheet" role="dialog" aria-modal="true" aria-label="Gasto activo">
   <div class="panel">
     <div class="grab"></div>
-    <div class="burnhead"><div class="micon" style="background:var(--m5)"><svg><use href="#i-fire"/></svg></div><h3 id="burnTitle">Ejercicio de hoy</h3></div>
-    <p class="hint">Mira en tu reloj las <b>kcal activas</b> (Actividad / Movimiento) y escríbelas. Puedes actualizarlas varias veces al día.</p>
+    <div class="burnhead"><div class="micon" style="background:var(--m5)"><svg><use href="#i-fire"/></svg></div><h3 id="burnTitle">Gasto activo</h3></div>
     <div>
       <div class="display"><span class="v ph num" id="burnV">0</span><small>kcal</small></div>
       <div class="after" id="burnAfter"></div>
@@ -386,7 +385,7 @@ nav.tabs .tab[aria-selected="true"]{color:var(--ink)}
       <button class="step" id="gPlus" aria-label="Subir 50">+</button>
     </div>
     <div class="presets" id="presets"></div>
-    <label class="toggle" for="burnCount"><span>Sumar ejercicio al objetivo<small>Si gastas 400 kcal, ese día puedes comer 400 más.</small></span><input type="checkbox" id="burnCount"></label>
+    <label class="toggle" for="burnCount"><span>Sumar gasto activo al objetivo<small>Lo que gastas se añade a lo que puedes comer ese día.</small></span><input type="checkbox" id="burnCount"></label>
     <button class="primary" id="gSave">Guardar objetivo</button>
     <h3 style="margin-top:8px">Copia de seguridad</h3>
     <p class="hint">Tus datos viven solo en este iPhone. Exporta de vez en cuando y guarda el archivo en Archivos o iCloud.</p>
@@ -470,12 +469,12 @@ nav.tabs .tab[aria-selected="true"]{color:var(--ink)}
     $('ring').classList.toggle('is-over',over);
     $('ringNum').textContent = over ? '+'+nf(total-goal) : nf(goal-total);
     $('ringUnit').textContent = over ? 'kcal de más' : total===0 ? 'kcal disponibles' : 'kcal restantes';
-    $('ringOf').textContent = nf(total)+' de '+nf(goal)+' kcal'+(S.countBurn&&burned(k)?' (con ejercicio)':'');
+    $('ringOf').textContent = nf(total)+' de '+nf(goal)+' kcal';
     const st=$('status'), pct=total/goal;
     st.className='status '+(over?'bad':total===0?'idle':'ok');
     st.lastElementChild.textContent = over ? 'Te has pasado' : total===0 ? 'Empieza tu día' : pct>=.9 ? 'Justo en el objetivo' : 'Vas bien';
     $('mealsum').innerHTML = MEALS.map(m=>`<div><span class="dot" style="background:${m.c}"></span><small>${m.name}</small><b>${nf(mealTotal(k,m.id))}</b></div>`).join('')
-      + `<div><span class="dot" style="background:var(--m5)"></span><small>Ejercicio</small><b style="color:var(--m5)">${burned(k)?'−'+nf(burned(k)):'0'}</b></div>`;
+      + `<div><span class="dot" style="background:var(--m5)"></span><small>Gasto</small><b style="color:var(--m5)">${burned(k)?'−'+nf(burned(k)):'0'}</b></div>`;
   }
   function renderDay(){
     const k=S.dayKey, isToday=k===todayKey(), d=fromKey(k);
@@ -511,12 +510,11 @@ nav.tabs .tab[aria-selected="true"]{color:var(--ink)}
     });
     const b=burned(k), bc=document.createElement('div'); bc.className='card meal';
     bc.innerHTML=`<div class="meal-head"><div class="micon" style="background:var(--m5)"><svg><use href="#i-fire"/></svg></div>
-      <div class="info"><div class="name">Ejercicio</div><div class="meta">${b ? (S.countBurn?'Suma '+nf(b)+' a tu objetivo':'No suma al objetivo') : 'kcal gastadas del reloj'}</div></div>
+      <div class="info"><div class="name">Gasto activo</div><div class="meta">kcal</div></div>
       <div class="kc">${b?nf(b):''}</div>
-      <button class="addbtn" style="background:var(--m5)" aria-label="${b?'Editar':'Añadir'} kcal gastadas"><svg><use href="${b?'#i-fire':'#i-plus'}"/></svg></button></div>`;
+      <button class="addbtn" style="background:var(--m5)" aria-label="${b?'Editar':'Añadir'} gasto activo"><svg><use href="${b?'#i-fire':'#i-plus'}"/></svg></button></div>`;
     bc.querySelector('.addbtn').onclick=openBurn;
-    const h=document.createElement('div'); h.className='sec-h'; h.style.marginTop='12px'; h.innerHTML='<h2>Actividad</h2><small>del reloj, a mano</small>';
-    box.append(h, bc);
+    box.append(bc);
   }
   function addEntry(kcal,label,meal){
     kcal=Math.round(+kcal); if(!(kcal>0&&kcal<10000)) return;
@@ -686,16 +684,16 @@ nav.tabs .tab[aria-selected="true"]{color:var(--ink)}
   $('padLbl').addEventListener('keydown',e=>{ if(e.key==='Enter'){ e.preventDefault(); e.target.blur(); } });
   $('fab').onclick=()=>{ if(S.view!=='hoy'){ S.dayKey=todayKey(); setView('hoy'); } openAdd(); };
 
-  // Ejercicio (kcal gastadas, se fija el valor del día, no se acumula)
+  // Gasto activo (kcal gastadas, se fija el valor del día, no se acumula)
   let burnVal='';
   function renderBurn(){
     const k=S.dayKey, v=+burnVal||0, prev=burned(k);
-    $('burnTitle').textContent = k===todayKey() ? 'Ejercicio de hoy' : 'Ejercicio · '+fromKey(k).toLocaleDateString('es-ES',{weekday:'short',day:'numeric',month:'short'});
+    $('burnTitle').textContent = k===todayKey() ? 'Gasto activo' : 'Gasto activo · '+fromKey(k).toLocaleDateString('es-ES',{weekday:'short',day:'numeric',month:'short'});
     $('burnV').textContent = v?nf(v):'0'; $('burnV').classList.toggle('ph',!v);
     const g=baseGoal(k)+(S.countBurn?v:0), rest=g-dayTotal(k);
     $('burnAfter').innerHTML = S.countBurn ? `Objetivo del día: <b class="ok">${nf(g)} kcal</b> · ${rest>=0?'te quedan '+nf(rest):'te pasas '+nf(-rest)}` : 'No se suma al objetivo (puedes cambiarlo en Ajustes)';
     const btn=$('burnSave'); btn.disabled = v===prev;
-    btn.textContent = !v && prev ? 'Quitar ejercicio' : v===prev ? 'Sin cambios' : 'Guardar '+nf(v)+' kcal gastadas';
+    btn.textContent = !v && prev ? 'Quitar gasto activo' : v===prev ? 'Sin cambios' : 'Guardar '+nf(v)+' kcal';
   }
   function openBurn(){ burnVal=String(burned(S.dayKey)||''); renderBurn(); openSheet('burnSheet'); }
   $('burnPad').addEventListener('click',e=>{ const b=e.target.closest('button'); if(!b) return; const k=b.dataset.k;
@@ -703,7 +701,7 @@ nav.tabs .tab[aria-selected="true"]{color:var(--ink)}
     renderBurn(); });
   $('burnSave').onclick=()=>{ const k=S.dayKey, v=+burnVal||0, prev=burned(k);
     ensureDay(k).burned=v; pruneDay(k); save(); closeSheet('burnSheet'); render();
-    toast(v?'Ejercicio: '+nf(v)+' kcal':'Ejercicio quitado', ()=>{ ensureDay(k).burned=prev; pruneDay(k); save(); render(); }); };
+    toast(v?'Gasto activo: '+nf(v)+' kcal':'Gasto activo quitado', ()=>{ ensureDay(k).burned=prev; pruneDay(k); save(); render(); }); };
 
   // Ajustes
   let gTmp=2000; const PRESETS=[1500,1800,2000,2200,2500];
